@@ -18,4 +18,8 @@ public class ClientData {
         }
         return instance;
     }
+
+    public void addClient(ClientEntity clientEntity) {
+        this.clients.add(clientEntity);
+    }
 }

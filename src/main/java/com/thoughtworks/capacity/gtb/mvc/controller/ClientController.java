@@ -1,7 +1,23 @@
 package com.thoughtworks.capacity.gtb.mvc.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.thoughtworks.capacity.gtb.mvc.dto.ClientDTO;
+import com.thoughtworks.capacity.gtb.mvc.service.ClientService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/clients")
 public class ClientController {
+
+    @Resource
+    ClientService clientService;
+
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.OK)
+    public void register(@RequestBody @Valid ClientDTO client) {
+        clientService.addClient(client);
+    }
 }
