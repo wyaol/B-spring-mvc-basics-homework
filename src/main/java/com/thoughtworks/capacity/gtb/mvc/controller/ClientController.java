@@ -1,6 +1,7 @@
 package com.thoughtworks.capacity.gtb.mvc.controller;
 
 import com.thoughtworks.capacity.gtb.mvc.dto.ClientDTO;
+import com.thoughtworks.capacity.gtb.mvc.exceptions.CommonException;
 import com.thoughtworks.capacity.gtb.mvc.service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class ClientController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void register(@RequestBody @Valid ClientDTO client) {
+    public void register(@RequestBody @Valid ClientDTO client) throws CommonException {
         clientService.addClient(client);
     }
 }

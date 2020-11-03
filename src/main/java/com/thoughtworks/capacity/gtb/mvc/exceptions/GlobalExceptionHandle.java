@@ -23,4 +23,13 @@ public class GlobalExceptionHandle {
         System.out.println(msg);
         return new Error(HttpStatus.BAD_REQUEST.value(), msg);
     }
+
+    @ExceptionHandler(CommonException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Error commonExceptionHandle(CommonException e) {
+        e.printStackTrace();
+        System.out.println(e.getMessage());
+        return new Error(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
 }

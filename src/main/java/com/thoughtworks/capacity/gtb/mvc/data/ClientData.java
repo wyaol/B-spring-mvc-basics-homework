@@ -22,4 +22,12 @@ public class ClientData {
     public void addClient(ClientEntity clientEntity) {
         this.clients.add(clientEntity);
     }
+
+    public ClientEntity getClientByUsername(String username) {
+        for (ClientEntity clientEntity1: this.clients) {
+            if (clientEntity1.getUsername().equals(username))
+                return clientEntity1;
+        }
+        return null;
+    }
 }
