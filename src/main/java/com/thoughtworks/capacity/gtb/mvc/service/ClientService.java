@@ -3,7 +3,9 @@ package com.thoughtworks.capacity.gtb.mvc.service;
 import com.thoughtworks.capacity.gtb.mvc.data.ClientData;
 import com.thoughtworks.capacity.gtb.mvc.dto.ClientDTO;
 import com.thoughtworks.capacity.gtb.mvc.entity.ClientEntity;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClientService {
 
     private ClientData clientData = ClientData.getInstance();

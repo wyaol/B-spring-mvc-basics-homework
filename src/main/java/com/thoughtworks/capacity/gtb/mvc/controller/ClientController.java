@@ -16,7 +16,7 @@ public class ClientController {
     ClientService clientService;
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody @Valid ClientDTO client) {
         clientService.addClient(client);
     }
