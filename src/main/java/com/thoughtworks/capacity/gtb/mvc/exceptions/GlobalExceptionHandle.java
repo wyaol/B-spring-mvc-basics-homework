@@ -1,6 +1,7 @@
 package com.thoughtworks.capacity.gtb.mvc.exceptions;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +16,11 @@ public class GlobalExceptionHandle {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Error methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e) {
         e.printStackTrace();
-        String msg = e.getBindingResult().getFieldError().getDefaultMessage();
-        return new Error(HttpStatus.BAD_REQUEST.value(), msg == null ? "请求参数不合法" : msg);
+        FieldError fieldError = e.getBindingResult().getFieldError();
+        String defaultMessage = fieldError.getDefaultMessage();
+        String msg = defaultMessage == null ? "请求参数不合法" : defaultMessage;
+        msg = String.format("%s: %s", fieldError.getField(), msg);
+        System.out.println(msg);
+        return new Error(HttpStatus.BAD_REQUEST.value(), msg);
     }
 }
