@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/clients")
 public class ClientController {
 
     @Resource

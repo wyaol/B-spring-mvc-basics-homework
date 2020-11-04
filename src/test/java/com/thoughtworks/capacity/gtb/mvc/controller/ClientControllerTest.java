@@ -30,7 +30,7 @@ class ClientControllerTest {
     void shouldRegister() throws Exception {
         ClientDTO clientDTO = new ClientDTO("Tom", "123456", "123456789@qq.com");
         mockMvc.perform(
-                    post("/clients/register")
+                    post("/register")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isCreated());
@@ -41,7 +41,7 @@ class ClientControllerTest {
     void shouldRegisterWhenEmailIsEmpty() throws Exception {
         ClientDTO clientDTO = new ClientDTO("Tom", "123456", null);
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isCreated());
@@ -52,7 +52,7 @@ class ClientControllerTest {
     void shouldRegisterFailWhenUsernameIsEmpty() throws Exception {
         ClientDTO clientDTO = new ClientDTO(null, "123456", "123456789@qq.com");
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
@@ -62,7 +62,7 @@ class ClientControllerTest {
     void shouldRegisterFailWhenPasswordIsEmpty() throws Exception {
         ClientDTO clientDTO = new ClientDTO("Tom", null, "123456789@qq.com");
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
@@ -72,7 +72,7 @@ class ClientControllerTest {
     void shouldRegisterFailWhenUsernameLengthIsShort() throws Exception {
         ClientDTO clientDTO = new ClientDTO("To", "123456", "123456789@qq.com");
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
@@ -82,7 +82,7 @@ class ClientControllerTest {
     void shouldRegisterFailWhenUsernameLengthIsLong() throws Exception {
         ClientDTO clientDTO = new ClientDTO("TomTomTomTom", "123456", "123456789@qq.com");
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
@@ -92,7 +92,7 @@ class ClientControllerTest {
     void shouldRegisterFailWhenUsernameIsIllegal() throws Exception {
         ClientDTO clientDTO = new ClientDTO("[Tom]", "123456", "123456789@qq.com");
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
@@ -102,7 +102,7 @@ class ClientControllerTest {
     void shouldRegisterFailWhenPasswordLengthIsShort() throws Exception {
         ClientDTO clientDTO = new ClientDTO("Tom", "123", "123456789@qq.com");
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
@@ -112,7 +112,7 @@ class ClientControllerTest {
     void shouldRegisterFailWhenPasswordLengthIsLong() throws Exception {
         ClientDTO clientDTO = new ClientDTO("Tom", "123456789123456", "123456789@qq.com");
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
@@ -122,7 +122,7 @@ class ClientControllerTest {
     void shouldRegisterFailWhenEmailIsIllegal() throws Exception {
         ClientDTO clientDTO = new ClientDTO("Tom", "123456", "123456");
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
@@ -133,7 +133,7 @@ class ClientControllerTest {
         ClientDTO clientDTO = new ClientDTO("Tom", "123456", "123456@qq.com");
         clientData.addClient(new ClientEntity(clientDTO.getUsername(), clientDTO.getPassword(), clientDTO.getEmail()));
         mockMvc.perform(
-                post("/clients/register")
+                post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
                 .andExpect(status().isBadRequest());
