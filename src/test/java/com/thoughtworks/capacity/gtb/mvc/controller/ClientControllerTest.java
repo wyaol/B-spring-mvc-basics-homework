@@ -9,14 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.annotation.Resource;
-
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -144,6 +143,30 @@ class ClientControllerTest {
                 post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(clientDTO)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldLogin() throws Exception {
+        ClientDTO clientDTO = new ClientDTO("Tom", "123456", "123456@qq.com");
+        clientData.addClient(new ClientEntity(clientDTO.getUsername(), clientDTO.getPassword(), clientDTO.getEmail()));
+        mockMvc.perform(get("/login?username=Tom&password=123456"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldLoginFailWhenUserNotExist() throws Exception {
+        ClientDTO clientDTO = new ClientDTO("Tom", "123456", "123456@qq.com");
+        clientData.addClient(new ClientEntity(clientDTO.getUsername(), clientDTO.getPassword(), clientDTO.getEmail()));
+        mockMvc.perform(get("/login?username=Tome&password=123456"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldLoginFailWhenPasswordIsError() throws Exception {
+        ClientDTO clientDTO = new ClientDTO("Tom", "123456", "123456@qq.com");
+        clientData.addClient(new ClientEntity(clientDTO.getUsername(), clientDTO.getPassword(), clientDTO.getEmail()));
+        mockMvc.perform(get("/login?username=Tom&password=1234567"))
                 .andExpect(status().isBadRequest());
     }
 }
