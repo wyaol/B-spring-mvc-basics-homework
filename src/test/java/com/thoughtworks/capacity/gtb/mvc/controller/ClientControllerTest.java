@@ -1,17 +1,20 @@
 package com.thoughtworks.capacity.gtb.mvc.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.capacity.gtb.mvc.data.ClientData;
 import com.thoughtworks.capacity.gtb.mvc.dto.ClientDTO;
 import com.thoughtworks.capacity.gtb.mvc.entity.ClientEntity;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -25,6 +28,11 @@ class ClientControllerTest {
     MockMvc mockMvc;
     private ClientData clientData = ClientData.getInstance();
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    @AfterEach
+    void afterEach() {
+        clientData.setClients(new ArrayList<>());
+    }
 
     @Test
     void shouldRegister() throws Exception {
